@@ -5,7 +5,7 @@ import {
   createPasswordDoc,
   deletePasswordDoc,
   getCollection,
-  updatePasswordDoc,
+  updatePasswordValue,
 } from "./db";
 dotenv.config();
 
@@ -15,11 +15,11 @@ const run = async () => {
   try {
     await connectDB(url, "PW-Manager-Christoph");
     // await createPasswordDoc({ name: "Christoph", value: "1111" });
-    // await updatePasswordDoc("Christoph", {
+    // await updatePasswordValue("Christoph", {
     //   name: "Christoph-Update",
     //   value: "11112222",
     // });
-    await deletePasswordDoc("Christoph");
+    await deletePasswordDoc("Christoph-Update");
     await closeDB();
   } catch (error) {
     console.error(error);
