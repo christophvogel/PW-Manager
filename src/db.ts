@@ -30,3 +30,19 @@ export async function readPasswordDoc(passwordName: string) {
   const passwordCollection = await getCollection<PasswordDoc>("passwords");
   return await passwordCollection.findOne({ name: passwordName });
 }
+
+export async function updatePasswordDoc(
+  passwordName: string,
+  passwordDoc: PasswordDoc
+) {
+  const passwordCollection = await getCollection<PasswordDoc>("passwords");
+  return await passwordCollection.updateOne(
+    { name: passwordName },
+    { $set: passwordDoc }
+  );
+}
+
+export async function deletePasswordDoc(passwordName: string) {
+  const passwordCollection = await getCollection<PasswordDoc>("passwords");
+  return await passwordCollection.deleteOne({ name: passwordName });
+}
