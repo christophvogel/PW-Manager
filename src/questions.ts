@@ -20,7 +20,7 @@ export const askForCredentials = (): Promise<Credentials> =>
   ]);
 
 type Action = {
-  command: "get" | "set";
+  command: "get" | "set" | "delete";
   passwordName: string;
 };
 export const askForAction = (): Promise<Action> =>
@@ -32,6 +32,7 @@ export const askForAction = (): Promise<Action> =>
       choices: [
         { title: "Get a password", value: "get" },
         { title: "Set a password", value: "set" },
+        { title: "Delete a password", value: "delete" },
       ],
     },
     {
