@@ -1,6 +1,12 @@
 import http from "http";
 import dotenv from "dotenv";
-import { connectDB, createPasswordDoc, readPasswordDoc } from "./db";
+import {
+  connectDB,
+  createPasswordDoc,
+  deletePasswordDoc,
+  PasswordDoc,
+  readPasswordDoc,
+} from "./db";
 
 dotenv.config();
 
@@ -8,6 +14,18 @@ const port = process.env.PORT;
 const url = process.env.MONGODB_URL;
 
 connectDB(url, "PW-Manager-Christoph");
+
+const parseJSONBody = <T>(request: http.IncomingMessage): Promise<T> => {
+  return new Promise((resolve) => {
+    let data = "";
+    request.on("data", (chunk) => {
+      data += chunk;
+    });
+    request.on("end", () => {
+      resolve(JSON.parse(data));
+    });
+  });
+};
 
 const server = http.createServer(async (request, response) => {
   if (request.url === "/") {
@@ -32,11 +50,27 @@ const server = http.createServer(async (request, response) => {
     response.end(JSON.stringify(passwordDoc));
     return;
   }
+
+  if (request.method === "DELETE") {
+    const passwordDoc = await deletePasswordDoc(passwordName);
+    if (!passwordDoc) {
+      response.statusCode = 404;
+      response.end();
+      return;
+    }
+    response.statusCode = 200;
+    response.setHeader("Content-Type", "application/json");
+    response.end(JSON.stringify(passwordDoc));
+    return;
+  }
+
   if (request.method === "POST") {
-    const passwordDoc = await createPasswordDoc({
-      name: "test",
-      value: "supersicher",
-    });
+    const newPassword = await parseJSONBody<PasswordDoc>(request);
+
+    const passwordDoc = await createPasswordDoc(newPassword);
+    response.statusCode = 200;
+    response.setHeader("Content-Type", "application/json");
+    response.end(JSON.stringify(passwordDoc));
   }
   response.end();
 });
