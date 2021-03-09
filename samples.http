@@ -1,8 +1,8 @@
 ### GET a password by name
-GET http://localhost:3333/api/passwords/test
+GET http://localhost:3333/api/passwords/Hansi
 
 ### DELETE a password by name
-DELETE  http://localhost:3333/api/passwords/test
+DELETE  http://localhost:3333/api/passwords/hans
 
 
 ### GET an unknown password by name
@@ -14,6 +14,6 @@ POST http://localhost:3333/api/passwords
 Content-Type: application/json
 
 {
-    "name": "peter",
+    "name": "hans",
     "value": "sicher-is-sicher"
 } 
