@@ -26,8 +26,16 @@ const InputField = styled.input`
   border-radius: 10px;
   height: 2em;
   width: 10em;
+  color: white;
   font-size: 3em;
   font-family: "Bangers", cursive;
+  text-align: center;
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 1) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
 `;
 
 export default function Home() {
@@ -54,7 +62,7 @@ export default function Home() {
         </form>
         {passwordDoc && (
           <Text>
-            {passwordDoc.name} {passwordDoc.value}
+            <p>Your Password for: {passwordDoc.name}</p> is: {passwordDoc.value}
           </Text>
         )}
       </Container>
