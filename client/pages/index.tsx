@@ -15,11 +15,16 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   place-items: center;
+  background-image: url("http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/frog-face.png");
 `;
 
 const Text = styled.p`
   font-family: "Bangers", cursive;
   font-size: 5em;
+`;
+
+const Div = styled.div`
+  color: #27c919;
 `;
 
 const InputField = styled.input`
@@ -62,7 +67,10 @@ export default function Home() {
         </form>
         {passwordDoc && (
           <Text>
-            <p>Your Password for: {passwordDoc.name}</p> is: {passwordDoc.value}
+            <p>
+              Your Password for: <Div>{passwordDoc.name}</Div>
+            </p>{" "}
+            is: <Div>{passwordDoc.value}</Div>
           </Text>
         )}
       </Container>
